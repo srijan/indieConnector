@@ -16,7 +16,6 @@ class WebmentionReceiver extends Receiver
     public function processWebmention($sourceUrl, $targetUrl)
     {
         try {
-
             $microformats = $this->getDataFromSource($sourceUrl);
             $webmention = $this->getWebmentionData($microformats);
 
@@ -42,8 +41,7 @@ class WebmentionReceiver extends Receiver
                     'source' => $sourceUrl,
                     'target' => $targetUrl,
                 ]);
-
-                $this->triggerWebmentionHook($hookData, $targetPage->uuid()->toString());
+                $this->triggerWebmentionHook($hookData, $targetPage);
             }
 
             return [
@@ -114,11 +112,11 @@ class WebmentionReceiver extends Receiver
         return $hookData;
     }
 
-    public function triggerWebmentionHook($webmention, $pageUuid)
+    public function triggerWebmentionHook($webmention, $targetPage)
     {
         kirby()->trigger('indieConnector.webmention.received', [
             'webmention' => $webmention,
-            'targetPage' => $pageUuid,
+            'targetPage' => $targetPage,
         ]);
     }
 }
