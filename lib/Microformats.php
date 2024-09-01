@@ -257,7 +257,12 @@ class Microformats
 
                     if (isset($properties['content']) && !empty($properties['content'])) {
                         $contentArray = $properties['content'][0];
-                        $content = $this->contentHtml ? $contentArray['html'] : $contentArray['value'];
+                        if (gettype($contentArray) === 'string') {
+                            $content = $contentArray;
+                        }
+                        else {
+                            $content = $this->contentHtml ? $contentArray['html'] : $contentArray['value'];
+                        }
                     }
                 }
             }
