@@ -287,7 +287,7 @@ class Microformats
             }
         }
 
-        return null;
+        return "";
     }
 
     public function getPublishDate(array $microformats)
